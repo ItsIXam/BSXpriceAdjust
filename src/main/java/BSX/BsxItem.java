@@ -2,6 +2,9 @@ package BSX;
 
 import javax.xml.bind.annotation.*;
 
+/**
+ * The type Bsx item.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Item")
 @XmlType(propOrder = {"itemId", "itemType", "color", "price", "condition", "lotID", "remarks"})
@@ -44,13 +47,36 @@ public class BsxItem {
 
      */
 
+    /**
+     * Instantiates a new Bsx item.
+     */
     public BsxItem() {
     }
+
+    /**
+     * Instantiates a new Bsx item.
+     *
+     * @param lotID the lot id
+     * @param price the price
+     * @param color the color
+     */
     public BsxItem(int lotID, double price, int color) {
         this.price = price;
         this.lotID = lotID;
         this.color = color;
     }
+
+    /**
+     * Instantiates a new Bsx item.
+     *
+     * @param itemId    the item id
+     * @param itemType  the item type
+     * @param color     the color
+     * @param price     the price
+     * @param condition the condition
+     * @param lotID     the lot id
+     * @param remarks   the remarks
+     */
     public BsxItem(String itemId, String itemType, int color, double price, String condition, int lotID, String remarks) {
         this.itemId = itemId;
         this.itemType = itemType;
@@ -61,38 +87,83 @@ public class BsxItem {
         this.remarks = remarks;
     }
 
+    /**
+     * Gets item id.
+     *
+     * @return the item id
+     */
     public String getItemId() {
         return itemId;
     }
 
+    /**
+     * Gets item type.
+     *
+     * @return the item type
+     */
     public String getItemType() {
         return itemType;
     }
 
+    /**
+     * Gets color.
+     *
+     * @return the color
+     */
     public int getColor() {
         return color;
     }
 
+    /**
+     * Gets price.
+     *
+     * @return the price
+     */
     public double getPrice() {
         return price;
     }
 
+    /**
+     * Sets price.
+     *
+     * @param price the price
+     */
     public void setPrice(double price) {
         this.price = price;
     }
 
+    /**
+     * Gets condition.
+     *
+     * @return the condition
+     */
     public String getCondition() {
         return condition;
     }
 
+    /**
+     * Gets lot id.
+     *
+     * @return the lot id
+     */
     public int getLotID() {
         return lotID;
     }
 
+    /**
+     * Gets remarks.
+     *
+     * @return the remarks
+     */
     public String getRemarks() {
         return remarks;
     }
 
+    /**
+     * Sets remarks.
+     *
+     * @param remarks the remarks
+     */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }

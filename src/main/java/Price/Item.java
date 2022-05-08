@@ -3,29 +3,55 @@ package Price;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * The type Item.
+ */
 @JsonIgnoreProperties({"name", "category_id"})
 public class Item {
     private String no;
     private String type;
 
+    /**
+     * Instantiates a new Item.
+     */
     public Item() {
     }
 
+    /**
+     * Gets no.
+     *
+     * @return the no
+     */
     @JsonProperty("no")
     public String getNo() {
         return no;
     }
 
+    /**
+     * Sets no.
+     *
+     * @param no the no
+     */
     @JsonProperty("no")
     public void setNo(String no) {
         this.no = no;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     @JsonProperty("type")
     public String getType() {
         return type;
     }
 
+    /**
+     * Sets type.
+     *
+     * @param type the type
+     */
     @JsonProperty("type")
     public void setType(String type) {
         this.type = type;
