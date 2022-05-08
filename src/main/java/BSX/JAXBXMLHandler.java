@@ -26,10 +26,8 @@ public class JAXBXMLHandler {
      */
     public static void marshal(List<BsxItem> inventory, File selectedFile)
             throws IOException, JAXBException {
-        JAXBContext context;
-        BufferedWriter writer = null;
-        writer = new BufferedWriter(new FileWriter(selectedFile));
-        context = JAXBContext.newInstance(BrickStoreXML.class);
+        JAXBContext context = JAXBContext.newInstance(BrickStoreXML.class);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile));
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -45,7 +43,7 @@ public class JAXBXMLHandler {
      * @throws JAXBException the jaxb exception
      */
     public static List<Inventory> unmarshal(File importFile) throws JAXBException {
-        BrickStoreXML store = new BrickStoreXML();
+        BrickStoreXML store;
 
         JAXBContext context = JAXBContext.newInstance(BrickStoreXML.class);
         Unmarshaller um = context.createUnmarshaller();

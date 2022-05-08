@@ -4,30 +4,37 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Item")
-@XmlType(propOrder = {"remarks", "lotID"})
+@XmlType(propOrder = {"itemId", "itemType", "color", "price", "condition", "lotID", "remarks"})
 //@XmlType(propOrder = { "itemId", "itemType", "color", "category", "qty", "price", "condition", "sale", "remarks", "myCost"})
 public class BsxItem {
-    /*
-    @XmlElement(name = "ITEMID")
+
+    @XmlElement(name = "ItemID")
     private String itemId;
 
-    @XmlElement(name = "ITEMTYPE")
+    @XmlElement(name = "ItemTypeID")
     private String itemType;
 
-    @XmlElement(name = "COLOR")
+    @XmlElement(name = "ColorID")
     private int color;
 
+    @XmlElement(name = "Price")
+    private double price;
+
+    @XmlElement(name = "Condition")
+    private String condition;
+
+    @XmlElement(name = "LotID")
+    private int lotID;
+
+    @XmlElement(name = "Remarks")
+    private String remarks;
+
+    /*
     @XmlElement(name = "CATEGORY")
     private int category;
 
     @XmlElement(name = "QTY")
     private int qty;
-
-    @XmlElement(name = "PRICE")
-    private double price;
-
-    @XmlElement(name = "CONDITION")
-    private String condition;
 
     @XmlElement(name = "SALE")
     private int sale;
@@ -36,40 +43,46 @@ public class BsxItem {
     private double myCost;
 
      */
-    @XmlElement(name = "LotID")
-    private int lotID;
-
-    @XmlElement(name = "Remarks")
-    private String remarks;
 
     public BsxItem() {
     }
-//<ITEM>
-//  <ITEMID>25975pb02</ITEMID>
-//  <ITEMTYPE>P</ITEMTYPE>
-//  <COLOR>1</COLOR>
-//  <CATEGORY>943</CATEGORY>
-//  <QTY>2</QTY>
-//  <PRICE>1.702</PRICE>
-//  <CONDITION>N</CONDITION>
-//  <SALE>20</SALE>
-//  <REMARKS>Z52</REMARKS>
-//  <MYCOST>0.615</MYCOST>
-// </ITEM>
-// <ITEM>
-//  <ITEMID>3710</ITEMID>
-//  <ITEMTYPE>P</ITEMTYPE>
-//  <COLOR>156</COLOR>
-//  <CATEGORY>26</CATEGORY>
-//  <QTY>9</QTY>
-//  <PRICE>0.072</PRICE>
-//  <CONDITION>N</CONDITION>
-//  <SALE>20</SALE>
-//  <REMARKS>Z53</REMARKS>
-// </ITEM>
-    public BsxItem(int lotID, String remarks) {
+    public BsxItem(int lotID, double price, int color) {
+        this.price = price;
+        this.lotID = lotID;
+        this.color = color;
+    }
+    public BsxItem(String itemId, String itemType, int color, double price, String condition, int lotID, String remarks) {
+        this.itemId = itemId;
+        this.itemType = itemType;
+        this.color = color;
+        this.price = price;
+        this.condition = condition;
         this.lotID = lotID;
         this.remarks = remarks;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getCondition() {
+        return condition;
     }
 
     public int getLotID() {
