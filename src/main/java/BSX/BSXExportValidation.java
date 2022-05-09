@@ -4,6 +4,10 @@ import Config.ConfigurationProperty;
 import Price.PriceResponse;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -15,21 +19,25 @@ import org.apache.http.util.EntityUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
 
 /**
  * The type Bsx export validation.
  */
 public class BSXExportValidation {
-    private static final int amountOfDigitsWanted = 4;
     private static final String nameOfEndXML = "uploadToStore";
     private static final String baseUrl = "https://api.bricklink.com/api/store/v1/";
-    private static final int HardLimitRequest = 4500;
+    private static final int HardLimitRequest = 2000;
     private static final RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
     private static final CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
+
+    private static int requestCounter = 0;
 
 
     /**
@@ -42,9 +50,26 @@ public class BSXExportValidation {
         List<Inventory> store = new ArrayList<>();
         List<Inventory> newStore = new ArrayList<>();
         newStore.add(new Inventory());
-
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(ConfigurationProperty.CONSUMER_KEY.getPropertyName(), ConfigurationProperty.CONSUMER_SECRET.getPropertyName());
         consumer.setTokenWithSecret(ConfigurationProperty.TOKEN_VALUE.getPropertyName(), ConfigurationProperty.TOKEN_SECRET.getPropertyName());
+
+        Instant modifiedDate = Instant.ofEpochMilli(new File("src/main/resources/config.properties").lastModified());
+        Instant aDayAgo = ZonedDateTime.now().minusDays(1).toInstant();
+
+        //inladen request teller
+        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+
+            Properties prop = new Properties();
+            prop.load(input);
+
+            if (modifiedDate.isAfter(aDayAgo)) {
+                requestCounter = Integer.parseInt(prop.getProperty("requestCounter"));
+            } else {
+                prop.clear();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         //inladen bsx bestand
         try {
@@ -87,6 +112,7 @@ public class BSXExportValidation {
                 e.printStackTrace();
             }
         }
+        saveRequestCounter(requestCounter);
 
     }
 
@@ -95,20 +121,32 @@ public class BSXExportValidation {
      * @param url formatted url including parameters
      * @param consumer Oauth consumer
      * @return http response casted in PriceResponse class
-     * @throws Exception status code exception
+     * @throws IOException status code exception
      */
-    private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) throws Exception {
+    private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         HttpRequestBase httpRequest = new HttpGet(url);
+        PriceResponse res;
         //ondertekenen oauth request
-        consumer.sign(httpRequest);
-        CloseableHttpResponse httpResponse = execute(0, httpRequest);
-
-        if (httpResponse.getStatusLine().getStatusCode() != 200) {
-            throw new Exception("blank");
-        } else {
-            return mapper.readValue(EntityUtils.toString(httpResponse.getEntity()), PriceResponse.class);
+        try {
+            consumer.sign(httpRequest);
+        } catch (OAuthMessageSignerException | OAuthExpectationFailedException | OAuthCommunicationException e) {
+            throw new RuntimeException(e);
         }
+
+        try (CloseableHttpResponse httpResponse = execute(requestCounter, httpRequest)) {
+            if (httpResponse.getStatusLine().getStatusCode() >= 300) {
+                throw new HttpResponseException(httpResponse.getStatusLine().getStatusCode(), httpResponse.getStatusLine().getReasonPhrase());
+            } else {
+                res = mapper.readValue(EntityUtils.toString(httpResponse.getEntity()), PriceResponse.class);
+                EntityUtils.consume(httpResponse.getEntity());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        requestCounter++;
+        return res;
+
     }
 
     /**
@@ -131,6 +169,7 @@ public class BSXExportValidation {
             throw new Exception("Daily request limit is reached");
         }
         return result;
+
     }
 
     /**
@@ -149,5 +188,18 @@ public class BSXExportValidation {
             );
         }
         return parts;
+    }
+
+    private static void saveRequestCounter(int counter) {
+        try (OutputStream output = new FileOutputStream("src/main/resources/config.properties")) {
+            Properties prop = new Properties();
+            // set the properties value
+            prop.setProperty("requestCounter", String.valueOf(counter));
+            // save properties to project root folder
+            prop.store(output, null);
+            System.out.println("request counter now is at " + counter);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 }
