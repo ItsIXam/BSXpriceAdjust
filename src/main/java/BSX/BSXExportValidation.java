@@ -22,7 +22,9 @@ import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -44,17 +46,15 @@ public class BSXExportValidation {
      * The entry point of application.
      *
      * @param args the input arguments
-     * @throws Exception the exception
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         List<Inventory> store = new ArrayList<>();
         List<Inventory> newStore = new ArrayList<>();
         newStore.add(new Inventory());
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(ConfigurationProperty.CONSUMER_KEY.getPropertyName(), ConfigurationProperty.CONSUMER_SECRET.getPropertyName());
         consumer.setTokenWithSecret(ConfigurationProperty.TOKEN_VALUE.getPropertyName(), ConfigurationProperty.TOKEN_SECRET.getPropertyName());
-
-        Instant modifiedDate = Instant.ofEpochMilli(new File("src/main/resources/config.properties").lastModified());
-        Instant aDayAgo = ZonedDateTime.now().minusDays(1).toInstant();
+        Instant modifiedDate = Instant.ofEpochMilli(new File("src/main/resources/config.properties").lastModified()).truncatedTo(ChronoUnit.DAYS);
+        Instant today = Instant.now().truncatedTo(ChronoUnit.DAYS);
 
         //inladen request teller
         try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
@@ -62,7 +62,7 @@ public class BSXExportValidation {
             Properties prop = new Properties();
             prop.load(input);
 
-            if (modifiedDate.isAfter(aDayAgo)) {
+            if (modifiedDate.equals(today) || modifiedDate.isAfter(today)) {
                 requestCounter = Integer.parseInt(prop.getProperty("requestCounter"));
             } else {
                 prop.clear();
@@ -121,9 +121,8 @@ public class BSXExportValidation {
      * @param url formatted url including parameters
      * @param consumer Oauth consumer
      * @return http response casted in PriceResponse class
-     * @throws IOException status code exception
      */
-    private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) throws IOException {
+    private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) {
         ObjectMapper mapper = new ObjectMapper();
         HttpRequestBase httpRequest = new HttpGet(url);
         PriceResponse res;
