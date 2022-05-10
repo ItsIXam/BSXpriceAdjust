@@ -35,7 +35,7 @@ import java.util.Properties;
 public class BSXExportValidation {
     private static final String nameOfEndXML = "uploadToStore";
     private static final String baseUrl = "https://api.bricklink.com/api/store/v1/";
-    private static final int HardLimitRequest = 2000;
+    private static final int HardLimitRequest = 2500;
     private static final RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
     private static final CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
 
@@ -82,10 +82,14 @@ public class BSXExportValidation {
         for (BsxItem item : store.get(0).getInventory()) {
             double newPrice = 0;
 
-            //samenstellen url request string
-            String urlSold = baseUrl + "items/part/" + item.getItemId() + "/price?guide_type=sold&new_or_used=" + item.getCondition() + "&region=europe&color_id=" +item.getColor();
-            String urlStock = baseUrl + "items/part/" + item.getItemId() + "/price?guide_type=Stock&new_or_used=" + item.getCondition() + "&region=europe&color_id=" +item.getColor();
+            //rare bricklink api correctie
+            if(item.getItemTypeName().equals("Minifigure")) item.setItemTypeName("minifig");
 
+            //samenstellen url request string
+            String urlSold = baseUrl + "items/"+item.getItemTypeName().toLowerCase()+"/" + item.getItemId() + "/price?guide_type=sold&new_or_used=" + item.getCondition() + "&region=europe&color_id=" +item.getColor();
+            String urlStock = baseUrl + "items/"+item.getItemTypeName().toLowerCase()+"/" + item.getItemId() + "/price?guide_type=Stock&new_or_used=" + item.getCondition() + "&region=europe&color_id=" +item.getColor();
+
+            System.out.print("Adjusting price for "+item.getItemTypeName()+": "+ item.getItemId()+ ";color "+ item.getColor() + " | "+(store.get(0).getInventory().indexOf(item)+1) +" of "+ store.get(0).getInventory().size()+"\n\r");
             // response voor items in stock en verkochte items
             PriceResponse soldResponse = bricklinkPriceDataRequest(urlSold, consumer);
             PriceResponse stockResponse = bricklinkPriceDataRequest(urlStock, consumer);
@@ -165,6 +169,7 @@ public class BSXExportValidation {
                 e.printStackTrace();
             }
         } else {
+            saveRequestCounter(requestCounter);
             throw new Exception("Daily request limit is reached");
         }
         return result;
@@ -176,13 +181,13 @@ public class BSXExportValidation {
      * @param list list to be partitioned
      * @param L length of partition size, i.e. the length of the new lists
      * @return list of lists with size L
-     * @param <T>
+     * @param <T> any type of list
      */
     private static <T> List<List<T>> partitionList(List<T> list, final int L) {
-        List<List<T>> parts = new ArrayList<List<T>>();
+        List<List<T>> parts = new ArrayList<>();
         final int N = list.size();
         for (int i = 0; i < N; i += L) {
-            parts.add(new ArrayList<T>(
+            parts.add(new ArrayList<>(
                     list.subList(i, Math.min(N, i + L)))
             );
         }

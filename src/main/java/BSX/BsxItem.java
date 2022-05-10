@@ -7,15 +7,15 @@ import javax.xml.bind.annotation.*;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Item")
-@XmlType(propOrder = {"itemId", "itemType", "color", "price", "condition", "lotID", "remarks"})
+@XmlType(propOrder = {"itemId", "color", "itemTypeName", "price", "condition", "lotID", "remarks"})
 //@XmlType(propOrder = { "itemId", "itemType", "color", "category", "qty", "price", "condition", "sale", "remarks", "myCost"})
 public class BsxItem {
 
     @XmlElement(name = "ItemID")
     private String itemId;
 
-    @XmlElement(name = "ItemTypeID")
-    private String itemType;
+    @XmlElement(name = "ItemTypeName")
+    private String itemTypeName;
 
     @XmlElement(name = "ColorID")
     private int color;
@@ -70,16 +70,16 @@ public class BsxItem {
      * Instantiates a new Bsx item.
      *
      * @param itemId    the item id
-     * @param itemType  the item type
+     * @param ItemTypeName  the item type
      * @param color     the color
      * @param price     the price
      * @param condition the condition
      * @param lotID     the lot id
      * @param remarks   the remarks
      */
-    public BsxItem(String itemId, String itemType, int color, double price, String condition, int lotID, String remarks) {
+    public BsxItem(String itemId, String ItemTypeName, int color, double price, String condition, int lotID, String remarks) {
         this.itemId = itemId;
-        this.itemType = itemType;
+        this.itemTypeName = ItemTypeName;
         this.color = color;
         this.price = price;
         this.condition = condition;
@@ -97,12 +97,21 @@ public class BsxItem {
     }
 
     /**
-     * Gets item type.
+     * Gets item type name.
      *
      * @return the item type
      */
-    public String getItemType() {
-        return itemType;
+    public String getItemTypeName() {
+        return itemTypeName;
+    }
+
+    /**
+     * Sets item type name.
+     *
+     * @param itemTypeName the item type name
+     */
+    public void setItemTypeName(String itemTypeName) {
+        this.itemTypeName = itemTypeName;
     }
 
     /**
