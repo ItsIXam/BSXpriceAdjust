@@ -1,4 +1,4 @@
-package BSX;
+package Entities;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,28 +7,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The type Inventory.
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Inventory")
+
 public class Inventory {
 
-    @XmlElement(name = "Item", type = BsxItem.class)
-    private List<BsxItem> inventory = new ArrayList<>();
 
-    /**
-     * Instantiates a new Inventory.
-     */
-    public Inventory() {}
+    private List<bsxItem> inventory;
+
 
     /**
      * Instantiates a new Inventory.
      *
-     * @param books the books
+     * @param items the books
      */
-    public Inventory(List<BsxItem> books) {
-        this.inventory = books;
+    public Inventory(List<bsxItem> items) {
+        this.inventory = items;
     }
 
     /**
@@ -36,7 +28,7 @@ public class Inventory {
      *
      * @return the inventory
      */
-    public List<BsxItem> getInventory() {
+    public List<bsxItem> getInventory() {
         return inventory;
     }
 
@@ -45,7 +37,7 @@ public class Inventory {
      *
      * @param inventory the inventory
      */
-    public void setInventory(List<BsxItem> inventory) {
+    public void setInventory(List<bsxItem> inventory) {
         this.inventory = inventory;
     }
 }

@@ -1,4 +1,4 @@
-package Price;
+package Entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
