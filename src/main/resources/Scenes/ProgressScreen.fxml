@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="150.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProgressScreenController">
+   <children>
+      <VBox>
+         <children>
+            <HBox alignment="CENTER" prefWidth="500.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="adjustPriceLabel" text="Adjusting price of item 1 out 1000" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" text="X" />
+               </children>
+            </HBox>
+            <Label fx:id="percentageCompletedLabel" text="1% completed" />
+            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="500.0" progress="0.0" />
+            <HBox>
+               <children>
+                  <Label fx:id="doneLabel" />
+               </children>
+            </HBox>
+            <Region prefHeight="50.0" prefWidth="500.0" VBox.vgrow="ALWAYS" />
+            <HBox prefWidth="200.0">
+               <children>
+                  <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="closeButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#onClose" text="Close" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

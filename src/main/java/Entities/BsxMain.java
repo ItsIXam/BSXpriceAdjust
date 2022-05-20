@@ -42,7 +42,6 @@ public class BsxMain {
     public static void BSXMain(ProgressScreenController progressController){
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(ConfigurationProperty.CONSUMER_KEY.getPropertyName(), ConfigurationProperty.CONSUMER_SECRET.getPropertyName());
         consumer.setTokenWithSecret(ConfigurationProperty.TOKEN_VALUE.getPropertyName(), ConfigurationProperty.TOKEN_SECRET.getPropertyName());
-          //inladen request counter
 
         Store store = loadBSX(file); //inladen bsx bestand
 
@@ -81,7 +80,7 @@ public class BsxMain {
     }
 
     private static int loadRequestCounter(){
-        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+        try (InputStream input = new FileInputStream("src/main/resources/Properties/config.properties")) {
             Instant modifiedDate = Instant.ofEpochMilli(new File("src/main/resources/config.properties").lastModified()).truncatedTo(ChronoUnit.DAYS);
             Instant today = Instant.now().truncatedTo(ChronoUnit.DAYS);
             Properties prop = new Properties();

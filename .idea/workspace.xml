@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b42d45c9-77ab-47c1-9439-af45eaa1db88" name="Changes" comment="feat: GUI&#10;&#10;added gui to the program with progress bar with useful info for the user">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_12_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_12_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_12_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_failureaccess_1_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_31_1_jre.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_j2objc_j2objc_annotations_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_xml_bind_jaxb_core_2_3_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_xml_bind_jaxb_impl_2_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_codec_commons_codec_1_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_logging_commons_logging_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__oauth_signpost_signpost_commonshttp4_2_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__oauth_signpost_signpost_core_2_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_httpcomponents_httpclient_4_5_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_httpcomponents_httpcore_4_4_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_checkerframework_checker_qual_3_12_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_8_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_8_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_8_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_8_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_base_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_base_win_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_controls_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_controls_win_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_fxml_win_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_graphics_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_graphics_win_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_media_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_media_win_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_openjfx_javafx_web_win_18_ea_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/BSXpriceAdjust.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/BSXpriceAdjust.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/BSXpriceAdjust.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Entities/UserSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Scenes/HomeScreen.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Scenes/ProgressScreen.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Store.bsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/updateStore0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Entities/BsxMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Entities/BsxMain.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="module-info" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="28mhHv1mgQ8YFUxejoEk1cNvb9Z" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Documenten/Max/TU/OOP Project/Main",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.45747125",
+    "settings.editor.selected.configurable": "vcs.Git"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java\Controllers" />
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java" />
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java\BSX" />
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\resources" />
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java\price" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\resources\Properties" />
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\resources" />
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Entities" />
+      <recent name="BSX" />
+      <recent name="Price" />
+      <recent name="Config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MainApp">
+    <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainApp" />
+      <module name="BSXpriceAdjust.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainAppView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-18" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Views.MainAppView" />
+      <module name="BSXpriceAdjust.main" />
+      <option name="VM_PARAMETERS" value="--module-path $USER_HOME$/.jdks/javafx-sdk-18.0.1/lib --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BSX.decorator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.MainApp" />
+      <item itemvalue="Application.MainAppView" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainApp" />
+        <item itemvalue="Application.MainAppView" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b42d45c9-77ab-47c1-9439-af45eaa1db88" name="Changes" comment="" />
+      <created>1651827585022</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651827585022</updated>
+      <workItem from="1651827586789" duration="34002000" />
+      <workItem from="1652085124663" duration="6883000" />
+      <workItem from="1652170939686" duration="1720000" />
+      <workItem from="1652184036842" duration="6341000" />
+      <workItem from="1652194492245" duration="1531000" />
+      <workItem from="1652251949714" duration="4790000" />
+      <workItem from="1652706178046" duration="3627000" />
+      <workItem from="1652710793368" duration="14000" />
+      <workItem from="1652710829620" duration="3324000" />
+      <workItem from="1652714215124" duration="1380000" />
+      <workItem from="1652716548163" duration="1883000" />
+      <workItem from="1652779992350" duration="4538000" />
+      <workItem from="1652784556312" duration="2913000" />
+      <workItem from="1652789175913" duration="4317000" />
+      <workItem from="1652798528883" duration="11077000" />
+      <workItem from="1652963701974" duration="17758000" />
+      <workItem from="1653034723002" duration="6816000" />
+      <workItem from="1653041624291" duration="911000" />
+      <workItem from="1653045093350" duration="4175000" />
+      <workItem from="1653052484524" duration="15140000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: users can adjust their prices">
+      <created>1652025462950</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1652025462950</updated>
+    </task>
+    <task id="LOCAL-00002" summary="docs: added javadoc to all classes">
+      <created>1652029026840</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1652029026840</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: keep track of daily request limit and make sure the program doesn't go over the limit">
+      <created>1652085141898</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1652085141898</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: reset of daily request limiter&#10;&#10;introduces a last modified date based on when the counter was last saved to file. compares it to current date to determine if the counter should reset.">
+      <created>1652089925266</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1652089925266</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: allow to adjust pricing for other types of items&#10;&#10;before it was only possible to adjust pricing for parts. now all item types are supported">
+      <created>1652195394850</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1652195394851</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: update/upload mode&#10;&#10;allows users to select a mode to either update their inventory or apply price adjusting to a yet to be uploaded inventory">
+      <created>1653041483317</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1653041483317</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: GUI&#10;&#10;added gui to the program with progress bar with useful info for the user">
+      <created>1653083050888</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1653083050888</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: GUI&#10;&#10;added gui to the program with progress bar with useful info for the user">
+      <created>1653083137822</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1653083137822</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: users can adjust their prices" />
+    <MESSAGE value="docs: added javadoc to all classes" />
+    <MESSAGE value="feat: keep track of daily request limit and make sure the program doesn't go over the limit" />
+    <MESSAGE value="fix: reset of daily request limiter&#10;&#10;introduces a last modified date based on when the counter was last saved to file. compares it to current date to determine if the counter should reset." />
+    <MESSAGE value="feat: allow to adjust pricing for other types of items&#10;&#10;before it was only possible to adjust pricing for parts. now all item types are supported" />
+    <MESSAGE value="feat: update/upload mode&#10;&#10;allows users to select a mode to either update their inventory or apply price adjusting to a yet to be uploaded inventory" />
+    <MESSAGE value="feat: GUI&#10;&#10;added gui to the program with progress bar with useful info for the user" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: GUI&#10;&#10;added gui to the program with progress bar with useful info for the user" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Entities/XMLhelper.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Price.PriceData" memberName="avg_price" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

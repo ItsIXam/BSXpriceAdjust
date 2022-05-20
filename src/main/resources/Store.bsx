@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BrickStoreXML>
+ <Inventory Currency="EUR">
+  <Item>
+   <ItemID>122c01</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Plate, Modified 2 x 2 with Red Wheels</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>43</CategoryID>
+   <CategoryName>Wheel</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.059</Price>
+   <Condition>U</Condition>
+   <Sale>15</Sale>
+   <Remarks>0092</Remarks>
+   <LotID>289464208</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>15</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>5</ColorID>
+   <ItemName>Legs without Split</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Red</ColorName>
+   <CategoryID>1116</CategoryID>
+   <CategoryName>Minifigure, Legs, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>3</Qty>
+   <Price>0.142</Price>
+   <Condition>U</Condition>
+   <Sale>15</Sale>
+   <Remarks>0166</Remarks>
+   <LotID>291744412</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>15</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Legs without Split</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>1116</CategoryID>
+   <CategoryName>Minifigure, Legs, Modified</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.136</Price>
+   <Condition>U</Condition>
+   <Sale>15</Sale>
+   <Remarks>0153</Remarks>
+   <LotID>291744398</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>2335</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Flag 2 x 2 Square</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>76</CategoryID>
+   <CategoryName>Flag</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.068</Price>
+   <Condition>N</Condition>
+   <Sale>15</Sale>
+   <Cost>0.015</Cost>
+   <Remarks>Black</Remarks>
+   <LotID>275213741</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>2340</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>7</ColorID>
+   <ItemName>Tail 4 x 1 x 3</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Blue</ColorName>
+   <CategoryID>106</CategoryID>
+   <CategoryName>Tail</CategoryName>
+   <Status>I</Status>
+   <Qty>2</Qty>
+   <Price>0.078</Price>
+   <Condition>U</Condition>
+   <Sale>15</Sale>
+   <Remarks>0163</Remarks>
+   <LotID>289907832</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>2341</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>86</ColorID>
+   <ItemName>Slope, Inverted 45 3 x 1 Double</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Light Bluish Gray</ColorName>
+   <CategoryID>32</CategoryID>
+   <CategoryName>Slope, Inverted</CategoryName>
+   <Status>I</Status>
+   <Qty>4</Qty>
+   <Price>0.103</Price>
+   <Condition>U</Condition>
+   <Sale>15</Sale>
+   <Remarks>0160</Remarks>
+   <LotID>289776086</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>2342</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>7</ColorID>
+   <ItemName>Minifigure, Utensil Control Panel</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Blue</ColorName>
+   <CategoryID>18</CategoryID>
+   <CategoryName>Minifigure, Utensil</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.579</Price>
+   <Condition>U</Condition>
+   <Sale>15</Sale>
+   <Remarks>0140</Remarks>
+   <LotID>289907825</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>2342</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>11</ColorID>
+   <ItemName>Minifigure, Utensil Control Panel</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Black</ColorName>
+   <CategoryID>18</CategoryID>
+   <CategoryName>Minifigure, Utensil</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.488</Price>
+   <Condition>U</Condition>
+   <Sale>15</Sale>
+   <Remarks>0046</Remarks>
+   <LotID>289461971</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>2343</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>12</ColorID>
+   <ItemName>Minifigure, Utensil Goblet</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Trans-Clear</ColorName>
+   <CategoryID>18</CategoryID>
+   <CategoryName>Minifigure, Utensil</CategoryName>
+   <Status>I</Status>
+   <Qty>6</Qty>
+   <Price>0.138</Price>
+   <Condition>N</Condition>
+   <Sale>15</Sale>
+   <Cost>0.039</Cost>
+   <Remarks>Z0132</Remarks>
+   <LotID>265872450</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+  <Item>
+   <ItemID>2343</ItemID>
+   <ItemTypeID>P</ItemTypeID>
+   <ColorID>95</ColorID>
+   <ItemName>Minifigure, Utensil Goblet</ItemName>
+   <ItemTypeName>Part</ItemTypeName>
+   <ColorName>Flat Silver</ColorName>
+   <CategoryID>18</CategoryID>
+   <CategoryName>Minifigure, Utensil</CategoryName>
+   <Status>I</Status>
+   <Qty>1</Qty>
+   <Price>0.144</Price>
+   <Condition>N</Condition>
+   <Sale>15</Sale>
+   <Cost>0.051</Cost>
+   <LotID>265873041</LotID>
+   <DateAdded>2022-05-20T18:41:31Z</DateAdded>
+  </Item>
+ </Inventory>
+ <GuiState Application="BrickStore" Version="2">
+  <ColumnLayout Compressed="1"><![CDATA[AAABWXicNcw5DsJADIVhmy1hD2EJOwQQSklaKGi4AQ3ciwNjS/5HeqNPz555VN9aRJqWi0UlrkLiXGk/sSZ3S8vxs7QdpaXjeFsSmlQDXdDz0c3S18AADBmNwJh/MjBhNANzx8uyAAXLS3ZWNGuaDc2WZgf24ACOoAQnnp9ppo6npaGBXP85uAqZ]]></ColumnLayout>
+  <SortFilterState Compressed="1"><![CDATA[AAAAPHicY2BgYAl2Cw5hANKMDGDABaEYQFwmIGYGyQExKxCzATE7EHMAMScASdMBgQ==]]></SortFilterState>
+ </GuiState>
+</BrickStoreXML>
