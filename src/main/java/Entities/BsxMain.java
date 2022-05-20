@@ -1,7 +1,11 @@
 package Entities;
 
 import Config.ConfigurationProperty;
+import Controllers.ProgressScreenController;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -35,19 +39,45 @@ public class BsxMain {
     private static boolean isUpload = false;
     private static File file;
 
-    public static void BSXMain(){
+    public static void BSXMain(ProgressScreenController progressController){
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(ConfigurationProperty.CONSUMER_KEY.getPropertyName(), ConfigurationProperty.CONSUMER_SECRET.getPropertyName());
         consumer.setTokenWithSecret(ConfigurationProperty.TOKEN_VALUE.getPropertyName(), ConfigurationProperty.TOKEN_SECRET.getPropertyName());
-        requestCounter = loadRequestCounter();  //inladen request counter
+          //inladen request counter
 
         Store store = loadBSX(file); //inladen bsx bestand
-        //verkrijgen prijsdata via bricklink api
-        for (bsxItem item : store.getStore().get(0).getInventory()) {
-            item.setPrice(requestItemPrice(item, consumer));
-        }
+
+        final ProgressBar pb = progressController.getProgressBar();
+        final Label adjustPriceLabel = progressController.getAdjustPriceLabel();
+        final Label percentageCompletedLabel = progressController.getPercentageCompletedLabel();
+
+
+        // separate non-FX thread
+        // runnable for that thread
+        new Thread(() -> {
+            //verkrijgen prijsdata via bricklink api
+            for (bsxItem item : store.getStore().get(0).getInventory()) {
+                int itemCount = store.getStore().get(0).getInventory().indexOf(item) + 1;
+                int inventorySize = store.getStore().get(0).getInventory().size();
+
+                item.setPrice(requestItemPrice(item, consumer));
+
+                final double percentageCompleted = itemCount * 100d / inventorySize;
+                // update ProgressIndicator on FX thread
+                Platform.runLater(() -> {
+                    adjustPriceLabel.setText("Adjusting price of item "+itemCount+" out of "+ inventorySize);
+                    percentageCompletedLabel.setText((percentageCompleted * 10) / 10 +"% completed");
+                    pb.setProgress(percentageCompleted/100);
+                });
+            }
+            Platform.runLater(() -> {
+                progressController.getDoneLabel().setText("Done, Prices are adjusted");
+                progressController.getCloseButton().setDisable(false);
+            });
+        }).start();
         //Schrijven naar nieuw update xml bestand
+
         writeBSX(store, isUpload);
-        saveRequestCounter(requestCounter);
+        System.out.println("Done");
     }
 
     private static int loadRequestCounter(){
@@ -99,6 +129,7 @@ public class BsxMain {
     }
 
     private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) {
+        requestCounter = loadRequestCounter();
         ObjectMapper mapper = new ObjectMapper();
         HttpRequestBase httpRequest = new HttpGet(url);
         PriceResponse res;
@@ -120,6 +151,7 @@ public class BsxMain {
             throw new RuntimeException(e);
         }
         requestCounter++;
+        saveRequestCounter(requestCounter);
         return res;
 
     }
