@@ -1,6 +1,5 @@
 package Entities;
 
-import Config.ConfigurationProperty;
 import Controllers.ProgressScreenController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
@@ -34,14 +33,18 @@ public class BsxMain {
     private static final int HardLimitRequest = 4800;
     private static final RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
     private static final CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
+    private static final File userCredentialsFile = new File(System.getenv("APPDATA")+"\\bsxPriceAdjust\\userSettings.properties");
     private static int requestCounter = 0;
-
+    private static UserSettings userSettings;
     private static boolean isUpload = false;
     private static File file;
 
     public static void BSXMain(ProgressScreenController progressController){
-        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(ConfigurationProperty.CONSUMER_KEY.getPropertyName(), ConfigurationProperty.CONSUMER_SECRET.getPropertyName());
-        consumer.setTokenWithSecret(ConfigurationProperty.TOKEN_VALUE.getPropertyName(), ConfigurationProperty.TOKEN_SECRET.getPropertyName());
+        if(userCredentialsFile.exists()){
+            userSettings = UserSettings.loadUserCredentials(userCredentialsFile);
+        }
+        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(userSettings.getConsumerKey(), userSettings.getConsumerSecret());
+        consumer.setTokenWithSecret(userSettings.getTokenValue(), userSettings.getTokenSecret());
 
         Store store = loadBSX(file); //inladen bsx bestand
 
@@ -80,6 +83,7 @@ public class BsxMain {
     }
 
     private static int loadRequestCounter(){
+        // FIXME: 23-5-2022 werkt niet als bestand niet bestaat
         try (InputStream input = new FileInputStream("src/main/resources/Properties/config.properties")) {
             Instant modifiedDate = Instant.ofEpochMilli(new File("src/main/resources/config.properties").lastModified()).truncatedTo(ChronoUnit.DAYS);
             Instant today = Instant.now().truncatedTo(ChronoUnit.DAYS);
@@ -101,7 +105,7 @@ public class BsxMain {
         return XMLhelper.unmarshal(file);
     }
 
-    private static double requestItemPrice(bsxItem item, OAuthConsumer consumer){
+    static double requestItemPrice(bsxItem item, OAuthConsumer consumer){
         double newPrice = 0;
 
         //rare bricklink api correctie
@@ -115,16 +119,19 @@ public class BsxMain {
         PriceResponse soldResponse = bricklinkPriceDataRequest(urlSold, consumer);
         PriceResponse stockResponse = bricklinkPriceDataRequest(urlStock, consumer);
 
-        double stockSoldRatio =  stockResponse.getPriceData().getTotal_quantity() / soldResponse.getPriceData().getTotal_quantity();
+        if(soldResponse.getMeta().getCode() == 200){
+            double stockSoldRatio =  stockResponse.getPriceData().getTotal_quantity() / soldResponse.getPriceData().getTotal_quantity();
 
-        if(stockSoldRatio < 3){
-            newPrice = soldResponse.getPriceData().getAvg_price() + 0.01;
-        } else if (stockSoldRatio > 3 & stockSoldRatio < 5) {
-            newPrice = soldResponse.getPriceData().getAvg_price();
-        } else if (stockSoldRatio > 5) {
-            newPrice = soldResponse.getPriceData().getAvg_price() - 0.01;
+            if(stockSoldRatio < 3){
+                newPrice = soldResponse.getPriceData().getAvg_price() + 0.01;
+            } else if (stockSoldRatio > 3 & stockSoldRatio < 5) {
+                newPrice = soldResponse.getPriceData().getAvg_price();
+            } else if (stockSoldRatio > 5) {
+                newPrice = soldResponse.getPriceData().getAvg_price() - 0.01;
+            }
+            newPrice = Math.round(newPrice * 1000d) / 1000d;
         }
-        return Math.round(newPrice * 1000d) / 1000d;
+        return newPrice;
     }
 
     private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) {
