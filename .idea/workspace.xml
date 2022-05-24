@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b42d45c9-77ab-47c1-9439-af45eaa1db88" name="Changes" comment="fix: .gitignore now works">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Controllers/SettingsScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="b42d45c9-77ab-47c1-9439-af45eaa1db88" name="Changes" comment="feat: settings screen with credential input&#10;&#10;users can now input their bricklink api credentials directly in the software. it checks if the inputted credentials are valid and then saves it in the appdata directory. users cannot start price adjusting until credentials are inputted.">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Scenes/SettingsScreen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/HomeScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/HomeScreenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Entities/BsxMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Entities/BsxMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Entities/UserSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Entities/UserSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Scenes/HomeScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Scenes/HomeScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Views/MainAppView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Views/MainAppView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +34,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -59,7 +62,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Documenten/Max/MXbricks/BSXpriceAdjust&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Documenten/Max/MXbricks/BSXpriceAdjust/src/main/resources/Scenes&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
@@ -69,11 +72,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\resources\Scenes" />
       <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java\Controllers" />
       <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java" />
       <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java\BSX" />
       <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\resources" />
-      <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\java\price" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Documenten\Max\MXbricks\BSXpriceAdjust\src\main\resources\Properties" />
@@ -159,7 +162,10 @@
       <workItem from="1653311057314" duration="1108000" />
       <workItem from="1653312209174" duration="204000" />
       <workItem from="1653312550477" duration="494000" />
-      <workItem from="1653313076309" duration="12928000" />
+      <workItem from="1653313076309" duration="13523000" />
+      <workItem from="1653385436093" duration="790000" />
+      <workItem from="1653386242668" duration="407000" />
+      <workItem from="1653398232764" duration="2628000" />
     </task>
     <task id="LOCAL-00001" summary="feat: users can adjust their prices">
       <created>1652025462950</created>
@@ -224,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653083981681</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: settings screen with credential input&#10;&#10;users can now input their bricklink api credentials directly in the software. it checks if the inputted credentials are valid and then saves it in the appdata directory. users cannot start price adjusting until credentials are inputted.">
+      <created>1653328050715</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1653328050715</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +248,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="max.klomp_bug-fix_req-counter-loading" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -250,7 +275,8 @@
     <MESSAGE value="feat: update/upload mode&#10;&#10;allows users to select a mode to either update their inventory or apply price adjusting to a yet to be uploaded inventory" />
     <MESSAGE value="feat: GUI&#10;&#10;added gui to the program with progress bar with useful info for the user" />
     <MESSAGE value="fix: .gitignore now works" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: .gitignore now works" />
+    <MESSAGE value="feat: settings screen with credential input&#10;&#10;users can now input their bricklink api credentials directly in the software. it checks if the inputted credentials are valid and then saves it in the appdata directory. users cannot start price adjusting until credentials are inputted." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: settings screen with credential input&#10;&#10;users can now input their bricklink api credentials directly in the software. it checks if the inputted credentials are valid and then saves it in the appdata directory. users cannot start price adjusting until credentials are inputted." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -262,8 +288,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Entities/UserSettings.java</url>
-          <line>86</line>
+          <line>78</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Views/MainAppView.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

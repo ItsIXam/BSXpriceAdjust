@@ -3,23 +3,21 @@ package Views;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 
 
 /**
  * The type Bsx export validation.
  */
 public class MainAppView extends Application {
-
-
+    private static final File appdataBSXDirectory = new File(System.getenv("APPDATA")+"\\bsxPriceAdjust");
     private static Stage primaryStage;
-
     /**
      * Launch the application.
      * @param args optional launch parameters
@@ -40,6 +38,13 @@ public class MainAppView extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        if(!appdataBSXDirectory.exists()) {
+            try {
+                Files.createDirectory(appdataBSXDirectory.toPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         primaryStage = stage;
         primaryStage.setMinWidth(520);
         primaryStage.setMinHeight(420);

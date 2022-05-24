@@ -4,7 +4,6 @@ import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Properties;
 
 public class UserSettings {
@@ -55,14 +54,7 @@ public class UserSettings {
     }
 
     public void saveUserCredentials(){
-        if(!this.saveLocation.exists()) {
-            try {
-                Files.createDirectory(this.saveLocation.toPath());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
+        //kan ervan uitgaan dat saveLocation bestaat, want wordt gecontrolleerd in mainAppView.java > start()
         try (OutputStream output = new FileOutputStream(this.saveLocation+"\\userSettings.properties")) {
 
             Properties prop = new Properties();

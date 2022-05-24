@@ -33,7 +33,9 @@ public class BsxMain {
     private static final int HardLimitRequest = 4800;
     private static final RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
     private static final CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
-    private static final File userCredentialsFile = new File(System.getenv("APPDATA")+"\\bsxPriceAdjust\\userSettings.properties");
+    private static final File appdataBSXDirectory = new File(System.getenv("APPDATA")+"\\bsxPriceAdjust");
+    private static final File userCredentialsFile = new File(appdataBSXDirectory+"\\userSettings.properties");
+    private static final File requestCounterFile = new File(appdataBSXDirectory+"\\config.properties");
     private static int requestCounter = 0;
     private static UserSettings userSettings;
     private static boolean isUpload = false;
@@ -82,27 +84,20 @@ public class BsxMain {
         System.out.println("Done");
     }
 
-    private static int loadRequestCounter(){
-        // FIXME: 23-5-2022 werkt niet als bestand niet bestaat
-        try (InputStream input = new FileInputStream("src/main/resources/Properties/config.properties")) {
-            Instant modifiedDate = Instant.ofEpochMilli(new File("src/main/resources/config.properties").lastModified()).truncatedTo(ChronoUnit.DAYS);
-            Instant today = Instant.now().truncatedTo(ChronoUnit.DAYS);
-            Properties prop = new Properties();
-            prop.load(input);
-
-            if (modifiedDate.equals(today) || modifiedDate.isAfter(today)) {
-                requestCounter = Integer.parseInt(prop.getProperty("requestCounter"));
-            } else {
-                prop.clear();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return requestCounter;
-    }
-
     private static Store loadBSX(File file){
         return XMLhelper.unmarshal(file);
+    }
+
+    private static void writeBSX(Store store, Boolean isUpload) {
+        List<List<bsxItem>> partitions = partitionList(store.getStore().get(0).getInventory());
+        for (int i = 0; i < partitions.size(); i++) {
+            String fileName = file.getParent() +"/"+ nameOfEndXML + i;
+            if (isUpload) {
+                XMLhelper.uploadMarshall(store, new File(fileName + ".xml"));
+            } else {
+                XMLhelper.updateMarshal(store, new File(fileName + ".xml"));
+            }
+        }
     }
 
     static double requestItemPrice(bsxItem item, OAuthConsumer consumer){
@@ -135,7 +130,7 @@ public class BsxMain {
     }
 
     private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) {
-        requestCounter = loadRequestCounter();
+        if(requestCounterFile.exists()) requestCounter = loadRequestCounter();
         ObjectMapper mapper = new ObjectMapper();
         HttpRequestBase httpRequest = new HttpGet(url);
         PriceResponse res;
@@ -203,8 +198,26 @@ public class BsxMain {
         return parts;
     }
 
+    private static int loadRequestCounter(){
+        try (InputStream input = new FileInputStream(requestCounterFile)) {
+            Instant modifiedDate = Instant.ofEpochMilli(requestCounterFile.lastModified()).truncatedTo(ChronoUnit.DAYS);
+            Instant today = Instant.now().truncatedTo(ChronoUnit.DAYS);
+            Properties prop = new Properties();
+            prop.load(input);
+
+            if (modifiedDate.equals(today) || modifiedDate.isAfter(today)) {
+                requestCounter = Integer.parseInt(prop.getProperty("requestCounter"));
+            } else {
+                prop.clear();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return requestCounter;
+    }
+
     private static void saveRequestCounter(int counter) {
-        try (OutputStream output = new FileOutputStream("src/main/resources/config.properties")) {
+        try (OutputStream output = new FileOutputStream(requestCounterFile)) {
             Properties prop = new Properties();
             // set the properties value
             prop.setProperty("requestCounter", String.valueOf(counter));
@@ -222,17 +235,5 @@ public class BsxMain {
 
     public static void setIsUpload(boolean isUpload) {
         BsxMain.isUpload = isUpload;
-    }
-
-    private static void writeBSX(Store store, Boolean isUpload) {
-        List<List<bsxItem>> partitions = partitionList(store.getStore().get(0).getInventory());
-        for (int i = 0; i < partitions.size(); i++) {
-            String fileName = file.getParent() +"/"+ nameOfEndXML + i;
-            if (isUpload) {
-                XMLhelper.uploadMarshall(store, new File(fileName + ".xml"));
-            } else {
-                XMLhelper.updateMarshal(store, new File(fileName + ".xml"));
-            }
-        }
     }
 }
