@@ -1,25 +1,27 @@
-package Views;
+package views;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-
-
 /**
  * The type Bsx export validation.
  */
 public class MainAppView extends Application {
-    private static final File appdataBSXDirectory = new File(System.getenv("APPDATA")+"\\bsxPriceAdjust");
+
+    private static final File appdataBSXDirectory = new File(
+        System.getenv("APPDATA") + "\\bsxPriceAdjust");
     private static Stage primaryStage;
+
     /**
      * Launch the application.
+     *
      * @param args optional launch parameters
      */
     public static void main(String[] args) {
@@ -38,7 +40,7 @@ public class MainAppView extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        if(!appdataBSXDirectory.exists()) {
+        if (!appdataBSXDirectory.exists()) {
             try {
                 Files.createDirectory(appdataBSXDirectory.toPath());
             } catch (IOException e) {

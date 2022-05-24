@@ -1,11 +1,10 @@
-package Entities;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package entities;
 
 /**
  * The type Meta.
  */
 public class Meta {
+
     private int code;
     private String message;
     private String description;
@@ -21,7 +20,6 @@ public class Meta {
      *
      * @return the code
      */
-    @JsonProperty("code")
     public int getCode() {
         return code;
     }
@@ -31,7 +29,6 @@ public class Meta {
      *
      * @param code the code
      */
-    @JsonProperty("code")
     public void setCode(int code) {
         this.code = code;
     }
@@ -41,7 +38,6 @@ public class Meta {
      *
      * @return the message
      */
-    @JsonProperty("message")
     public String getMessage() {
         return message;
     }
@@ -51,7 +47,6 @@ public class Meta {
      *
      * @param message the message
      */
-    @JsonProperty("message")
     public void setMessage(String message) {
         this.message = message;
     }
@@ -61,7 +56,6 @@ public class Meta {
      *
      * @return the description
      */
-    @JsonProperty("description")
     public String getDescription() {
         return description;
     }
@@ -71,7 +65,6 @@ public class Meta {
      *
      * @param description the description
      */
-    @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
     }

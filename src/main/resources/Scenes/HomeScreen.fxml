@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane cacheShape="false" snapToPixel="false" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeScreenController">
+<AnchorPane cacheShape="false" snapToPixel="false" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeScreenController">
     <MenuBar prefHeight="25.0" prefWidth="500.0">
         <menus>
             <Menu mnemonicParsing="false" text="File">

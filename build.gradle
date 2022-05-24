@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.24.1'
+    id 'checkstyle'
 }
 
 group 'org.example'
@@ -27,10 +28,18 @@ application {
 }
 
 javafx {
-    version = '18-ea+6'
+    version = '17-ea+6'
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.media']
 }
 
+checkstyle {
+    toolVersion "10.2"
+    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+
+    ignoreFailures = false
+    maxErrors = 0
+    maxWarnings = 0
+}
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
@@ -40,6 +49,7 @@ dependencies {
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.1'
     implementation 'oauth.signpost:signpost-commonshttp4:2.1.1'
     implementation 'oauth.signpost:oauth-signpost:2.1.1'
+    implementation 'com.puppycrawl.tools:checkstyle:10.2'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.4'
 }
 
@@ -59,3 +69,5 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17

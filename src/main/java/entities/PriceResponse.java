@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The type Price response.
  */
 public class PriceResponse {
+
     private Meta meta;
     private PriceData data;
 
