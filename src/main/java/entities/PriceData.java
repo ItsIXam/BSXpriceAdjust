@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,13 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties({"min_price", "max_price", "qty_avg_price", "price_detail", "currency_code"})
 public class PriceData {
+
     private Item item;
-    private String new_or_used;
-    private double avg_price;
-
-    private int unit_quantity;
-
-    private int total_quantity;
+    private String condition;
+    private double avgPrice;
+    private int unitQuantity;
+    private int totalQuantity;
 
     /**
      * Instantiates a new Price data.
@@ -48,18 +47,18 @@ public class PriceData {
      * @return the new or used
      */
     @JsonProperty("new_or_used")
-    public String getNew_or_used() {
-        return new_or_used;
+    public String getCondition() {
+        return condition;
     }
 
     /**
      * Sets new or used.
      *
-     * @param new_or_used the new or used
+     * @param condition the new or used
      */
     @JsonProperty("new_or_used")
-    public void setNew_or_used(String new_or_used) {
-        this.new_or_used = new_or_used;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     /**
@@ -68,18 +67,18 @@ public class PriceData {
      * @return the avg price
      */
     @JsonProperty("avg_price")
-    public double getAvg_price() {
-        return avg_price;
+    public double getAvgPrice() {
+        return avgPrice;
     }
 
     /**
      * Sets avg price.
      *
-     * @param avg_price the avg price
+     * @param avgPrice the avg price
      */
     @JsonProperty("avg_price")
-    public void setAvg_price(double avg_price) {
-        this.avg_price = avg_price;
+    public void setAvgPrice(double avgPrice) {
+        this.avgPrice = avgPrice;
     }
 
     /**
@@ -88,18 +87,18 @@ public class PriceData {
      * @return the unit quantity
      */
     @JsonProperty("unit_quantity")
-    public double getUnit_quantity() {
-        return unit_quantity;
+    public double getUnitQuantity() {
+        return unitQuantity;
     }
 
     /**
      * Sets unit quantity.
      *
-     * @param unit_quantity the unit quantity
+     * @param unitQuantity the unit quantity
      */
     @JsonProperty("unit_quantity")
-    public void setUnit_quantity(int unit_quantity) {
-        this.unit_quantity = unit_quantity;
+    public void setUnitQuantity(int unitQuantity) {
+        this.unitQuantity = unitQuantity;
     }
 
     /**
@@ -108,18 +107,18 @@ public class PriceData {
      * @return the total quantity
      */
     @JsonProperty("total_quantity")
-    public double getTotal_quantity() {
-        return total_quantity;
+    public double getTotalQuantity() {
+        return totalQuantity;
     }
 
     /**
      * Sets total quantity.
      *
-     * @param total_quantity the total quantity
+     * @param totalQuantity the total quantity
      */
     @JsonProperty("total_quantity")
-    public void setTotal_quantity(int total_quantity) {
-        this.total_quantity = total_quantity;
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
 }

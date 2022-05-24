@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties({"name", "category_id"})
 public class Item {
+
     private String no;
     private String type;
 
@@ -59,10 +60,16 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Item item)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Item item)) {
+            return false;
+        }
 
-        if (no != null ? !no.equals(item.no) : item.no != null) return false;
+        if (no != null ? !no.equals(item.no) : item.no != null) {
+            return false;
+        }
         return type != null ? type.equals(item.type) : item.type == null;
     }
 }

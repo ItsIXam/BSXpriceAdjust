@@ -4,41 +4,53 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controllers.SettingsScreenController">
-    <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="20.0"
-             tabMaxWidth="100.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsScreenController">
+    <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="20.0" tabMaxWidth="100.0">
         <Tab text="Credentials">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <VBox layoutX="14.0" layoutY="14.0" prefHeight="355.0" prefWidth="585.0" spacing="15.0">
                     <VBox spacing="5.0">
-                        <Label text="consumerKey"/>
-                        <TextField fx:id="consumerKeyField"/>
+                        <Label text="consumerKey" />
+                        <TextField fx:id="consumerKeyField" />
                     </VBox>
                     <VBox spacing="5.0">
-                        <Label text="consumerSecret"/>
-                        <PasswordField fx:id="consumerSecretField"/>
+                        <Label text="consumerSecret" />
+                        <PasswordField fx:id="consumerSecretField" />
                     </VBox>
                     <VBox spacing="5.0">
-                        <Label text="tokenValue"/>
-                        <TextField fx:id="tokenValueField"/>
+                        <Label text="tokenValue" />
+                        <TextField fx:id="tokenValueField" />
                     </VBox>
                     <VBox spacing="5.0">
-                        <Label text="tokenSecret"/>
-                        <PasswordField fx:id="tokenSecretField"/>
+                        <Label text="tokenSecret" />
+                        <PasswordField fx:id="tokenSecretField" />
                     </VBox>
                 </VBox>
             </AnchorPane>
         </Tab>
+        <Tab text="Arithmetics">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <children>
+               <VBox fx:id="choichboxName" prefHeight="372.0" prefWidth="600.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                  <children>
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <ChoiceBox fx:id="choiceboxName" prefWidth="150.0" />
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+            </children></AnchorPane>
+        </Tab>
     </TabPane>
     <ButtonBar buttonMinWidth="100.0" layoutY="388.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0">
       <buttons>
-          <Label fx:id="errorLabel" prefHeight="17.0"/>
-          <Button mnemonicParsing="false" onAction="#onSave" text="Save"/>
-          <Button mnemonicParsing="false" onAction="#onClose" text="Close"/>
+          <Label fx:id="errorLabel" prefHeight="17.0" />
+          <Button mnemonicParsing="false" onAction="#onSave" text="Save" />
+          <Button mnemonicParsing="false" onAction="#onClose" text="Close" />
       </buttons>
         <padding>
-          <Insets left="5.0" right="5.0"/>
+          <Insets left="5.0" right="5.0" />
         </padding>
     </ButtonBar>
 </AnchorPane>

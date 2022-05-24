@@ -1,7 +1,18 @@
-package Entities;
+package entities;
 
-import Controllers.ProgressScreenController;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import controllers.ProgressScreenController;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -20,46 +31,53 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.*;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
+/**
+ * The type Bsx main.
+ */
 public class BsxMain {
+
     private static final String nameOfEndXML = "updateStore";
     private static final String baseUrl = "https://api.bricklink.com/api/store/v1/";
     private static final int HardLimitRequest = 4800;
-    private static final RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build();
-    private static final CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
-    private static final File appdataBSXDirectory = new File(System.getenv("APPDATA")+"\\bsxPriceAdjust");
-    private static final File userCredentialsFile = new File(appdataBSXDirectory+"\\userSettings.properties");
-    private static final File requestCounterFile = new File(appdataBSXDirectory+"\\config.properties");
+    private static final RequestConfig requestConfig = RequestConfig.custom()
+        .setCookieSpec(CookieSpecs.STANDARD).build();
+    private static final CloseableHttpClient client = HttpClients.custom()
+        .setDefaultRequestConfig(requestConfig).build();
+    private static final File appdataBSXDirectory = new File(
+        System.getenv("APPDATA") + "\\bsxPriceAdjust");
+    private static final File userCredentialsFile = new File(
+        appdataBSXDirectory + "\\userSettings.properties");
+    private static final File requestCounterFile = new File(
+        appdataBSXDirectory + "\\config.properties");
     private static int requestCounter = 0;
     private static UserSettings userSettings;
     private static boolean isUpload = false;
     private static File file;
 
-    public static void BSXMain(ProgressScreenController progressController){
-        if(userCredentialsFile.exists()){
+    /**
+     * Bsx main.
+     *
+     * @param progressController the progress controller
+     */
+    public static void bsxMain(ProgressScreenController progressController) {
+        if (userCredentialsFile.exists()) {
             userSettings = UserSettings.loadUserCredentials(userCredentialsFile);
         }
-        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(userSettings.getConsumerKey(), userSettings.getConsumerSecret());
+        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(userSettings.getConsumerKey(),
+            userSettings.getConsumerSecret());
         consumer.setTokenWithSecret(userSettings.getTokenValue(), userSettings.getTokenSecret());
 
-        Store store = loadBSX(file); //inladen bsx bestand
+        Store store = loadBsx(file); //inladen bsx bestand
 
         final ProgressBar pb = progressController.getProgressBar();
         final Label adjustPriceLabel = progressController.getAdjustPriceLabel();
         final Label percentageCompletedLabel = progressController.getPercentageCompletedLabel();
 
-
         // separate non-FX thread
         // runnable for that thread
         new Thread(() -> {
             //verkrijgen prijsdata via bricklink api
-            for (bsxItem item : store.getStore().get(0).getInventory()) {
+            for (BsxItem item : store.getStore().get(0).getInventory()) {
                 int itemCount = store.getStore().get(0).getInventory().indexOf(item) + 1;
                 int inventorySize = store.getStore().get(0).getInventory().size();
 
@@ -68,9 +86,11 @@ public class BsxMain {
                 final double percentageCompleted = itemCount * 100d / inventorySize;
                 // update ProgressIndicator on FX thread
                 Platform.runLater(() -> {
-                    adjustPriceLabel.setText("Adjusting price of item "+itemCount+" out of "+ inventorySize);
-                    percentageCompletedLabel.setText((percentageCompleted * 10) / 10 +"% completed");
-                    pb.setProgress(percentageCompleted/100);
+                    adjustPriceLabel.setText(
+                        "Adjusting price of item " + itemCount + " out of " + inventorySize);
+                    percentageCompletedLabel.setText(
+                        (percentageCompleted * 10) / 10 + "% completed");
+                    pb.setProgress(percentageCompleted / 100);
                 });
             }
             Platform.runLater(() -> {
@@ -80,49 +100,66 @@ public class BsxMain {
         }).start();
         //Schrijven naar nieuw update xml bestand
 
-        writeBSX(store, isUpload);
+        writeBsx(store, isUpload);
         System.out.println("Done");
     }
 
-    private static Store loadBSX(File file){
-        return XMLhelper.unmarshal(file);
+    private static Store loadBsx(File file) {
+        return XmlHelper.unmarshal(file);
     }
 
-    private static void writeBSX(Store store, Boolean isUpload) {
-        List<List<bsxItem>> partitions = partitionList(store.getStore().get(0).getInventory());
+    private static void writeBsx(Store store, Boolean isUpload) {
+        List<List<BsxItem>> partitions = partitionList(store.getStore().get(0).getInventory());
         for (int i = 0; i < partitions.size(); i++) {
-            String fileName = file.getParent() +"/"+ nameOfEndXML + i;
+            String fileName = file.getParent() + "/" + nameOfEndXML + i;
             if (isUpload) {
-                XMLhelper.uploadMarshall(store, new File(fileName + ".xml"));
+                XmlHelper.uploadMarshall(store, new File(fileName + ".xml"));
             } else {
-                XMLhelper.updateMarshal(store, new File(fileName + ".xml"));
+                XmlHelper.updateMarshal(store, new File(fileName + ".xml"));
             }
         }
     }
 
-    static double requestItemPrice(bsxItem item, OAuthConsumer consumer){
+    /**
+     * Request item price double.
+     *
+     * @param item     the item
+     * @param consumer the consumer
+     * @return the double
+     */
+    static double requestItemPrice(BsxItem item, OAuthConsumer consumer) {
         double newPrice = 0;
 
         //rare bricklink api correctie
-        if(item.getItemTypeName().equals("Minifigure")) item.setItemTypeName("minifig");
+        if (item.getItemTypeName().equals("Minifigure")) {
+            item.setItemTypeName("minifig");
+        }
 
         //samenstellen url request string
-        String urlSold = baseUrl + "items/"+item.getItemTypeName().toLowerCase()+"/" + item.getItemID() + "/price?guide_type=sold&new_or_used=" + item.getCondition() + "&region=europe&color_id=" +item.getColor();
-        String urlStock = baseUrl + "items/"+item.getItemTypeName().toLowerCase()+"/" + item.getItemID() + "/price?guide_type=Stock&new_or_used=" + item.getCondition() + "&region=europe&color_id=" +item.getColor();
+        String urlSold =
+            baseUrl + "items/" + item.getItemTypeName().toLowerCase() + "/" + item.getItemId()
+                + "/price?guide_type=sold&new_or_used=" + item.getCondition()
+                + "&region=europe&color_id=" + item.getColor();
+        String urlStock =
+            baseUrl + "items/" + item.getItemTypeName().toLowerCase() + "/" + item.getItemId()
+                + "/price?guide_type=Stock&new_or_used=" + item.getCondition()
+                + "&region=europe&color_id=" + item.getColor();
 
         // response voor items in stock en verkochte items
         PriceResponse soldResponse = bricklinkPriceDataRequest(urlSold, consumer);
         PriceResponse stockResponse = bricklinkPriceDataRequest(urlStock, consumer);
 
-        if(soldResponse.getMeta().getCode() == 200){
-            double stockSoldRatio =  stockResponse.getPriceData().getTotal_quantity() / soldResponse.getPriceData().getTotal_quantity();
+        if (soldResponse.getMeta().getCode() == 200) {
+            double stockSoldRatio =
+                stockResponse.getPriceData().getTotalQuantity() / soldResponse.getPriceData()
+                    .getTotalQuantity();
 
-            if(stockSoldRatio < 3){
-                newPrice = soldResponse.getPriceData().getAvg_price() + 0.01;
+            if (stockSoldRatio < 3) {
+                newPrice = soldResponse.getPriceData().getAvgPrice() + 0.01;
             } else if (stockSoldRatio > 3 & stockSoldRatio < 5) {
-                newPrice = soldResponse.getPriceData().getAvg_price();
+                newPrice = soldResponse.getPriceData().getAvgPrice();
             } else if (stockSoldRatio > 5) {
-                newPrice = soldResponse.getPriceData().getAvg_price() - 0.01;
+                newPrice = soldResponse.getPriceData().getAvgPrice() - 0.01;
             }
             newPrice = Math.round(newPrice * 1000d) / 1000d;
         }
@@ -130,22 +167,27 @@ public class BsxMain {
     }
 
     private static PriceResponse bricklinkPriceDataRequest(String url, OAuthConsumer consumer) {
-        if(requestCounterFile.exists()) requestCounter = loadRequestCounter();
+        if (requestCounterFile.exists()) {
+            requestCounter = loadRequestCounter();
+        }
         ObjectMapper mapper = new ObjectMapper();
         HttpRequestBase httpRequest = new HttpGet(url);
         PriceResponse res;
         //ondertekenen oauth request
         try {
             consumer.sign(httpRequest);
-        } catch (OAuthMessageSignerException | OAuthExpectationFailedException | OAuthCommunicationException e) {
+        } catch (OAuthMessageSignerException | OAuthExpectationFailedException
+                 | OAuthCommunicationException e) {
             throw new RuntimeException(e);
         }
 
         try (CloseableHttpResponse httpResponse = execute(requestCounter, httpRequest)) {
             if (httpResponse.getStatusLine().getStatusCode() >= 300) {
-                throw new HttpResponseException(httpResponse.getStatusLine().getStatusCode(), httpResponse.getStatusLine().getReasonPhrase());
+                throw new HttpResponseException(httpResponse.getStatusLine().getStatusCode(),
+                    httpResponse.getStatusLine().getReasonPhrase());
             } else {
-                res = mapper.readValue(EntityUtils.toString(httpResponse.getEntity()), PriceResponse.class);
+                res = mapper.readValue(EntityUtils.toString(httpResponse.getEntity()),
+                    PriceResponse.class);
                 EntityUtils.consume(httpResponse.getEntity());
             }
         } catch (Exception e) {
@@ -158,16 +200,17 @@ public class BsxMain {
     }
 
     /**
-     * Execute http request and keep track of a daily request limit
+     * Execute http request and keep track of a daily request limit.
      *
-     * @param counter the counter
+     * @param counter     the counter
      * @param httpRequest the http request
      * @return closeable http response
      * @throws Exception daily request limit exception
      */
-    public static CloseableHttpResponse execute(int counter, HttpRequestBase httpRequest) throws Exception {
+    public static CloseableHttpResponse execute(int counter, HttpRequestBase httpRequest)
+        throws Exception {
         CloseableHttpResponse result = null;
-        if(counter < HardLimitRequest){
+        if (counter < HardLimitRequest) {
             try {
                 result = client.execute(httpRequest);
             } catch (IOException e) {
@@ -181,7 +224,7 @@ public class BsxMain {
     }
 
     /**
-     * Method to partition any list
+     * Method to partition any list.
      *
      * @param <T>  any type of list
      * @param list list to be partitioned
@@ -192,15 +235,16 @@ public class BsxMain {
         final int N = list.size();
         for (int i = 0; i < N; i += 1000) {
             parts.add(new ArrayList<>(
-                    list.subList(i, Math.min(N, i + 1000)))
+                list.subList(i, Math.min(N, i + 1000)))
             );
         }
         return parts;
     }
 
-    private static int loadRequestCounter(){
+    private static int loadRequestCounter() {
         try (InputStream input = new FileInputStream(requestCounterFile)) {
-            Instant modifiedDate = Instant.ofEpochMilli(requestCounterFile.lastModified()).truncatedTo(ChronoUnit.DAYS);
+            Instant modifiedDate = Instant.ofEpochMilli(requestCounterFile.lastModified())
+                .truncatedTo(ChronoUnit.DAYS);
             Instant today = Instant.now().truncatedTo(ChronoUnit.DAYS);
             Properties prop = new Properties();
             prop.load(input);
@@ -229,10 +273,20 @@ public class BsxMain {
         }
     }
 
-    public static void setFile(File file){
+    /**
+     * Sets file.
+     *
+     * @param file the file
+     */
+    public static void setFile(File file) {
         BsxMain.file = file;
     }
 
+    /**
+     * Sets is upload.
+     *
+     * @param isUpload the is upload
+     */
     public static void setIsUpload(boolean isUpload) {
         BsxMain.isUpload = isUpload;
     }
