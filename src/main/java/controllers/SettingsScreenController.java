@@ -64,7 +64,7 @@ public class SettingsScreenController {
             tokenValue, tokenSecret);
         if (userSettings.verifyUserCredentials()) {
             userSettings.saveUserCredentials();
-            setErrorText("Credentials saved", Color.color(0, 1, 0));
+            setErrorText("Valid\nCredentials saved", Color.color(0, 1, 0));
         } else {
             setErrorText("Invalid credentials", Color.color(1, 0, 0));
         }
