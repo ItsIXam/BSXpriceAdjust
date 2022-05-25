@@ -24,8 +24,10 @@ import views.MainAppView;
 public class HomeScreenController {
 
     private final FileChooser fileChooser = new FileChooser();
-    private final File userCredentialsFile = new File(
-        "C:\\Users\\Max\\AppData\\Roaming\\bsxPriceAdjust\\userSettings.properties");
+    private static final File appdataBSXDirectory = new File(
+            System.getenv("APPDATA") + "\\bsxPriceAdjust");
+    private static final File userCredentialsFile = new File(
+            appdataBSXDirectory + "\\userSettings.properties");
     private final ToggleGroup group = new ToggleGroup();
     //private Stage stage;
     private File file;

@@ -45,7 +45,7 @@
     </TabPane>
     <ButtonBar buttonMinWidth="100.0" layoutY="388.0" prefHeight="50.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0">
       <buttons>
-          <Label fx:id="errorLabel" prefHeight="17.0" />
+          <Label fx:id="errorLabel" />
           <Button mnemonicParsing="false" onAction="#onSave" text="Save" />
           <Button mnemonicParsing="false" onAction="#onClose" text="Close" />
       </buttons>
