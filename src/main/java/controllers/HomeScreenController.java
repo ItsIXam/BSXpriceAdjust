@@ -81,8 +81,13 @@ public class HomeScreenController {
     @FXML
     private void onStart() {
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
-        if (selectedRadioButton.getText().equals("Upload")) {
-            BsxMain.setIsUpload(true);
+        switch (selectedRadioButton.getText()) {
+            case "Upload":
+                BsxMain.setIsUpload(true);
+            case "Update":
+                BsxMain.setIsUpdate(true);
+            case "Brickstore Import":
+                BsxMain.setIsBrickStore(true);
         }
         if (file != null) {
             try {

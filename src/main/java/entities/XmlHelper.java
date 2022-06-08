@@ -8,10 +8,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.DOMException;
@@ -25,16 +22,81 @@ import org.xml.sax.SAXException;
  * The type Jaxbxml handler.
  */
 public class XmlHelper {
+    public static void marshall(Store store, File selectedFile, Boolean isUpload, Boolean isUpdate, Boolean isBrickStore) {
+        try  {
+        DocumentBuilderFactory docBuildFactory = DocumentBuilderFactory.newInstance();
+        docBuildFactory.setNamespaceAware(true);
+        DocumentBuilder docBuilder = docBuildFactory.newDocumentBuilder();
+        Document doc = docBuilder.newDocument();
+
+        //TODO: test dit stukje grondig
+        Element rootElement = doc.createElement("INVENTORY");
+        doc.appendChild(rootElement);
+
+        if (isBrickStore) {
+            Element newRootElement = doc.createElement("BrickStoreXML");
+            newRootElement.appendChild(doc.getFirstChild());
+        }
+        //
+
+        for (BsxItem item : store.getStore().get(0).getInventory()) {
+            if (item.getLotId() == 0 && isUpdate) {
+                throw new IllegalArgumentException(
+                        "This file misses lotIDs for one or more items, "
+                                + "therefore it cannot be updated, because it was not uploaded");
+            }
+
+            Element itemElement = doc.createElement("ITEM");
+            rootElement.appendChild(itemElement);
+
+            for (Field field : item.getClass().getDeclaredFields()) {
+                field.setAccessible(true); // to allow the access of member attributes
+                Object attribute = field.get(item);
+                if(isUpdate){
+                    if(field.getName().equals("LOTID") || field.getName().equals("PRICE")){
+                        Element itemType = doc.createElement(field.getName().toUpperCase());
+                        itemType.appendChild(doc.createTextNode(String.valueOf(attribute)));
+                        itemElement.appendChild(itemType);
+
+                        System.out.println(field.getName() + "=" + attribute);
+                    }
+                } else {
+                    if (attribute != null && attribute != "" && !attribute.equals(0) && !attribute.equals(0.0) && !field.getName().equalsIgnoreCase("ITEMTYPENAME")) {
+                        Element itemType = doc.createElement(field.getName().toUpperCase());
+                        itemType.appendChild(doc.createTextNode(String.valueOf(attribute)));
+                        itemElement.appendChild(itemType);
+
+                        System.out.println(field.getName() + "=" + attribute);
+                    }
+                }
+            }
+        }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(selectedFile);
+            transformer.transform(source, result);
+
+            // Output to console for testing
+            StreamResult consoleResult = new StreamResult(System.out);
+            transformer.transform(source, consoleResult);
+        } catch (TransformerException | ParserConfigurationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
-    /**
-     * Marshal.
-     *
-     * @param store        the store
-     * @param selectedFile the file name it needs to wright to
-     */
-    public static void updateMarshal(Store store, File selectedFile) {
+
+
+    /*
+    public static void updateMarshal(Store store, String outputDirectory, String fileName) {
         try {
+            File finalOutputDirectory = new File(outputDirectory);
+            if(!finalOutputDirectory.exists()) finalOutputDirectory.mkdir();
+            File outputFile = new File(finalOutputDirectory, fileName);
             DocumentBuilderFactory docBuildFactory = DocumentBuilderFactory.newInstance();
             docBuildFactory.setNamespaceAware(true);
             DocumentBuilder docBuilder = docBuildFactory.newDocumentBuilder();
@@ -67,28 +129,12 @@ public class XmlHelper {
             }
 
             // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(selectedFile);
-            transformer.transform(source, result);
-
-            // Output to console for testing
-            StreamResult consoleResult = new StreamResult(System.out);
-            transformer.transform(source, consoleResult);
-        } catch (ParserConfigurationException | TransformerException | DOMException e) {
+            write(doc, outputFile);
+        } catch (ParserConfigurationException | DOMException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Upload marshall.
-     *
-     * @param store        the store
-     * @param selectedFile the selected file
-     */
     public static void uploadMarshall(Store store, File selectedFile) {
         try {
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -124,8 +170,16 @@ public class XmlHelper {
                     }
                 }
             }
+            write(doc, selectedFile);
+        } catch (ParserConfigurationException  | DOMException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            // write the content into xml file
+    private static void write(Document doc, File selectedFile){
+        try{
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
@@ -137,13 +191,13 @@ public class XmlHelper {
             // Output to console for testing
             StreamResult consoleResult = new StreamResult(System.out);
             transformer.transform(source, consoleResult);
-        } catch (ParserConfigurationException | TransformerException | DOMException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (TransformerException e) {
             throw new RuntimeException(e);
         }
     }
 
+
+     */
     /**
      * Unmarshal list.
      *

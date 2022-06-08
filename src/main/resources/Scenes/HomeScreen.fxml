@@ -29,6 +29,7 @@
             <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="30.0" spacing="20.0">
                 <children>
                     <Label contentDisplay="CENTER" text="Please select a mode:" />
+               <RadioButton mnemonicParsing="false" text="Brickstore Import" />
                <RadioButton fx:id="updateButton" mnemonicParsing="false" text="Update" />
                <RadioButton fx:id="uploadButton" mnemonicParsing="false" text="Upload" />
                 </children>

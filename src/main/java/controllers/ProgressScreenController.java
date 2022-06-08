@@ -1,11 +1,22 @@
 package controllers;
 
 import entities.BsxMain;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * The type Progress screen controller.
@@ -22,6 +33,8 @@ public class ProgressScreenController {
     private Label doneLabel;
     @FXML
     private Button closeButton;
+    @FXML
+    private HBox toFileButtonBox;
 
     /**
      * Initialize.
@@ -83,5 +96,22 @@ public class ProgressScreenController {
      */
     public Label getDoneLabel() {
         return doneLabel;
+    }
+
+    public void setButtonToFile() {
+        Button buttonToFile = new Button();
+        SVGPath path = new SVGPath();
+        path.setContent("resources/Icons/folder_open_black_24dp.svg");
+        buttonToFile.setGraphic(path);
+        buttonToFile.setAlignment(Pos.CENTER);
+        toFileButtonBox.getChildren().add(buttonToFile);
+        buttonToFile.setOnAction(e -> {
+            try {
+                Desktop.getDesktop().open(new File(BsxMain.getFile().getParent()+"\\priceAdjustedFiles"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
     }
 }

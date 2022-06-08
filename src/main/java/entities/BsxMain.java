@@ -49,9 +49,12 @@ public class BsxMain {
         appdataBSXDirectory + "\\userSettings.properties");
     private static final File requestCounterFile = new File(
         appdataBSXDirectory + "\\config.properties");
+    private static final File outputDirectory = new File ("src/main/resources/updateStore0.xml");
     private static int requestCounter = 0;
     private static UserSettings userSettings;
     private static boolean isUpload = false;
+    private static boolean isUpdate = false;
+    private static boolean isBrickStore = false;
     private static File file;
 
     /**
@@ -96,11 +99,12 @@ public class BsxMain {
             Platform.runLater(() -> {
                 progressController.getDoneLabel().setText("Done, Prices are adjusted");
                 progressController.getCloseButton().setDisable(false);
+                progressController.setButtonToFile ();
             });
         }).start();
         //Schrijven naar nieuw update xml bestand
 
-        writeBsx(store, isUpload);
+        writeBsx(store);
         System.out.println("Done");
     }
 
@@ -108,15 +112,14 @@ public class BsxMain {
         return XmlHelper.unmarshal(file);
     }
 
-    private static void writeBsx(Store store, Boolean isUpload) {
+    private static void writeBsx(Store store) {
+        if(!outputDirectory.exists()) outputDirectory.mkdir();
+
         List<List<BsxItem>> partitions = partitionList(store.getStore().get(0).getInventory());
         for (int i = 0; i < partitions.size(); i++) {
             String fileName = file.getParent() + "/" + nameOfEndXML + i;
-            if (isUpload) {
-                XmlHelper.uploadMarshall(store, new File(fileName + ".xml"));
-            } else {
-                XmlHelper.updateMarshal(store, new File(fileName + ".xml"));
-            }
+            File outputFile = new File(outputDirectory, fileName);
+            XmlHelper.marshall(store, outputFile, isUpload, isUpdate, isBrickStore);
         }
     }
 
@@ -273,6 +276,10 @@ public class BsxMain {
         }
     }
 
+    public static File getFile() {
+        return file;
+    }
+
     /**
      * Sets file.
      *
@@ -289,5 +296,13 @@ public class BsxMain {
      */
     public static void setIsUpload(boolean isUpload) {
         BsxMain.isUpload = isUpload;
+    }
+
+    public static void setIsUpdate(boolean isUpdate) {
+        BsxMain.isUpdate = isUpdate;
+    }
+
+    public static void setIsBrickStore(boolean isBrickStore) {
+        BsxMain.isBrickStore = isBrickStore;
     }
 }

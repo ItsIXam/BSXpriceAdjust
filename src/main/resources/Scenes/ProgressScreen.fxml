@@ -22,6 +22,7 @@
                   <Label fx:id="doneLabel" />
                </children>
             </HBox>
+            <HBox fx:id="toFileButtonBox" />
             <Region prefHeight="50.0" prefWidth="500.0" VBox.vgrow="ALWAYS" />
             <HBox prefWidth="200.0">
                <children>
